@@ -28,4 +28,6 @@ def print_transaction(transaction):
     print(f"{transaction['operationAmount']['amount']} {transaction['operationAmount']['currency']['name']}")
 
 
+
 print_last_5_transactions(read_json())
+# [print(transaction) for transaction in read_json() if transaction["state"] == 'EXECUTED']
