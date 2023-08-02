@@ -52,5 +52,5 @@ def print_last_5_operations(operations):
             print(f"{from_account} -> {to_account}")
         print(f"{amount} {currency}\n")
 
-
-print_last_5_operations(read_json())
+if __name__ == "__main__":
+    print_last_5_operations(read_json())
