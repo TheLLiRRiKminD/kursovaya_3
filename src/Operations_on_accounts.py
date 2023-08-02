@@ -3,14 +3,23 @@ import time
 
 
 def read_json():
+    """Функция чтения JSON файла"""
     with open("../operations.json", encoding="UTF-8") as file:
         transactions_data = json.load(file)
         return transactions_data
 
 
 def mask_card_number(card_number):
-    masked_number = "XXXX XX** **** " + card_number[-4:]
-    return masked_number
+    # print(card_number)
+    info_about = card_number.split()
+    # print(info_about)
+    if len(info_about) == 3:
+        return f"{info_about[0]} {info_about[1]} {info_about[2][4:6]}** **** {info_about[2][-4:]}"
+    elif len(info_about) == 2:
+        return f"{info_about[0]} {info_about[1][:4]} {info_about[1][4:6]}** **** {info_about[1][-4:]}"
+    else:
+        return f"{card_number[:6]} ** **** {card_number[-4:]}"
+
 
 
 def mask_account_number(account_number):
