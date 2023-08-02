@@ -10,20 +10,27 @@ def read_json():
 
 
 def mask_card_number(card_number):
-    # print(card_number)
-    info_about = card_number.split()
-    # print(info_about)
-    if len(info_about) == 3:
-        return f"{info_about[0]} {info_about[1]} {info_about[2][4:6]}** **** {info_about[2][-4:]}"
-    elif len(info_about) == 2:
-        return f"{info_about[0]} {info_about[1][:4]} {info_about[1][4:6]}** **** {info_about[1][-4:]}"
+    info_about_card = card_number.split()
+    if len(info_about_card) == 3:
+        return f"{info_about_card[0]} {info_about_card[1]} {info_about_card[2][:4]} {info_about_card[2][4:6]}** **** {info_about_card[2][-4:]}"
+    elif len(info_about_card) == 2:
+        return f"{info_about_card[0]} {info_about_card[1][:4]} {info_about_card[1][4:6]}** **** {info_about_card[1][-4:]}"
+    elif len(info_about_card) == 1:
+        return f"{info_about_card[0][:4]} {info_about_card[0][4:6]}** **** {info_about_card[0][-4:]}"
     else:
         return ""
 
 
 def mask_account_number(account_number):
-    masked_number = account_number[:4] + " **" + account_number[-4:]
-    return masked_number
+    info_about_account = account_number.split()
+    if len(info_about_account) == 3:
+        return f"{info_about_account[0]} {info_about_account[1]} **{info_about_account[2][-4:]}"
+    elif len(info_about_account) == 2:
+        return f"{info_about_account[0]} **{info_about_account[1][-4:]}"
+    elif len(info_about_account) == 1:
+        return f"**{info_about_account[0][-4:]}"
+    else:
+        return ""
 
 
 def print_last_5_operations(operations):
