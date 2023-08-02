@@ -18,7 +18,7 @@ def mask_card_number(card_number):
     elif len(info_about) == 2:
         return f"{info_about[0]} {info_about[1][:4]} {info_about[1][4:6]}** **** {info_about[1][-4:]}"
     else:
-        return f"{card_number[:6]} ** **** {card_number[-4:]}"
+        return ""
 
 
 
@@ -40,7 +40,10 @@ def print_last_5_operations(operations):
         currency = operation['operationAmount']['currency']['name']
 
         print(f"{date} {description}")
-        print(f"{from_account} -> {to_account}")
+        if from_account == "":
+            print(to_account)
+        else:
+            print(f"{from_account} -> {to_account}")
         print(f"{amount} {currency}\n")
 
 
