@@ -21,7 +21,6 @@ def mask_card_number(card_number):
         return ""
 
 
-
 def mask_account_number(account_number):
     masked_number = account_number[:4] + " **" + account_number[-4:]
     return masked_number
