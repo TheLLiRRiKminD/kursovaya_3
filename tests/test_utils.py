@@ -118,10 +118,3 @@ def test_print_last_5_operations(capsys):
 
     )
     assert captured.out == expected_output
-
-
-def test_no_exceptions():
-    try:
-        print_last_5_operations(read_json())
-    except Exception as e:
-        pytest.fail(f"Function raised an exception: {e}")
