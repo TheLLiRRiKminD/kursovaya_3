@@ -1,5 +1,5 @@
 import pytest
-from src.Operations_on_accounts import mask_card_number, mask_account_number, print_last_5_operations, read_json
+from src.utils import mask_card_number, mask_account_number, print_last_5_operations, read_json
 
 
 def test_mask_card_number():
