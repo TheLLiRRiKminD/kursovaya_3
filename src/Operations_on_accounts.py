@@ -7,27 +7,30 @@ def read_json():
         return transactions_data
 
 
-def print_last_5_transactions(transactions_data):
-    # Фильтруем транзакции, оставляя только выполненные (state == "EXECUTED")
-    executed_transactions = [transaction for transaction in transactions_data if transaction["state"] == 'EXECUTED']
-
-    # Сортируем выполненные транзакции по дате в обратном порядке (по убыванию)
-    sorted_transactions = sorted(executed_transactions, key=lambda x: x['date'], reverse=True)
-
-    # Выводим информацию о последних 5 выполненных транзакциях
-    for transaction in sorted_transactions[:5]:
-        print_transaction(transaction)
-        print('\n')
-
-def print_transaction(transaction):
-    print(f"{transaction['date']} {transaction['description']}")
-    if 'from' in transaction:
-        print(f"{transaction['from']} -> {transaction['to']}")
-    else:
-        print(f"Перевод на счет {transaction['to']}")
-    print(f"{transaction['operationAmount']['amount']} {transaction['operationAmount']['currency']['name']}")
+def mask_card_number(card_number):
+    masked_number = "XXXX XX** **** " + card_number[-4:]
+    return masked_number
 
 
+def mask_account_number(account_number):
+    masked_number = "**" + account_number[-4:]
+    return masked_number
 
-print_last_5_transactions(read_json())
-# [print(transaction) for transaction in read_json() if transaction["state"] == 'EXECUTED']
+
+def print_last_5_operations(operations):
+    executed_transactions = [transaction for transaction in operations if transaction.get("state", '') == 'EXECUTED']
+    operations = sorted(executed_transactions, key=lambda x: x['date'], reverse=True)[:5]
+    for operation in operations:
+        date = operation['date'][:10]
+        description = operation['description']
+        from_account = mask_card_number(operation.get('from', ''))
+        to_account = mask_account_number(operation.get('to', ''))
+        amount = operation['operationAmount']['amount']
+        currency = operation['operationAmount']['currency']['code']
+
+        print(f"{date} {description}")
+        print(f"{from_account} -> {to_account}")
+        print(f"{amount} {currency}\n")
+
+
+print_last_5_operations(read_json())
